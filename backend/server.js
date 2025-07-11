@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const connectDB = require('./config/dbConfig');
-const cors = require('cors');
-const uploadCloud = require('./routes/upload');
+import mongoose from "mongoose";
+import express from "express";
+import connectDB from './config/db.js';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import uploadCloud from './routes/upload.js';
 
-const PORT = process.env.PORT || 5000;
+dotenv.config();
+const PORT = process.env.PORT || 4000;
 const app = express();
-
-connectDB();
+app.use(express.json());
 
 app.use(
     cors({
@@ -24,8 +25,10 @@ app.use(
     }
 ));
 
-app.use(express.json()); 
-
+connectDB();
+mongoose.connection.on('connected', () => {
+    console.log("MongoDB connected successfully");
+});
 app.get('/', (req, res) => {
     res.json({ message: "Gym Management API is running" });
 });

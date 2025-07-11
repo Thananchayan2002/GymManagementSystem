@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const ModernSlider = ({
   slides,
@@ -13,7 +14,14 @@ const ModernSlider = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
 
-  // Handle auto-play
+  const navigate = useNavigate();
+
+  const goToNext = useCallback(() => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  }, [currentIndex, slides.length]);
+
   useEffect(() => {
     if (!isPlaying) return;
 
@@ -22,17 +30,11 @@ const ModernSlider = ({
     }, interval);
 
     return () => clearTimeout(timer);
-  }, [currentIndex, isPlaying, interval]);
+  }, [currentIndex, isPlaying, interval, goToNext]);
 
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const goToNext = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
 
@@ -57,18 +59,21 @@ const ModernSlider = ({
             className="slide min-w-full h-full relative"
             style={{
               backgroundImage: `url(${slide.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           >
             {/* Dark overlay for better text visibility */}
             <div className="absolute inset-0 bg-[#192841]/40 bg-opacity-30"></div>
-            
+
             {slide.content && (
               <div className="slide-content absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                 <div className="max-w-4xl mx-auto">
                   {slide.content}
-                  <button className="mt-8 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                  <button
+                    className="mt-8 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105"
+                    onClick={() => navigate("/client/register")}
+                  >
                     Join Now
                   </button>
                 </div>
@@ -134,7 +139,7 @@ const ModernSlider = ({
               key={index}
               onClick={() => goToSlide(index)}
               className={`dot w-4 h-4 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-red-600 scale-125' : 'bg-gray-300'
+                index === currentIndex ? "bg-red-600 scale-125" : "bg-gray-300"
               }`}
               style={dotStyles}
               aria-label={`Go to slide ${index + 1}`}
@@ -148,7 +153,7 @@ const ModernSlider = ({
         <button
           onClick={toggleAutoPlay}
           className="absolute top-6 right-6 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all duration-300 hover:scale-110"
-          aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+          aria-label={isPlaying ? "Pause slideshow" : "Play slideshow"}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

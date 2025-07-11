@@ -1,10 +1,10 @@
-import React from 'react';
-import ModernSlider from './ModernSlider';
+import React from "react";
+import ModernSlider from "./ModernSlider";
 
 const Home = () => {
   const slides = [
     {
-      image: '/images/slider1.jpg',
+      image: "/images/slider1.jpg",
       content: (
         <>
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
@@ -17,7 +17,7 @@ const Home = () => {
       ),
     },
     {
-      image: '/images/slider2.jfif',
+      image: "/images/slider2.jfif",
       content: (
         <>
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
@@ -30,7 +30,7 @@ const Home = () => {
       ),
     },
     {
-      image: '/images/slider3.jpg',
+      image: "/images/slider3.jpg",
       content: (
         <>
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
@@ -43,7 +43,7 @@ const Home = () => {
       ),
     },
     {
-      image: '/images/slider4.jpg',
+      image: "/images/slider4.jpg",
       content: (
         <>
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
@@ -59,14 +59,14 @@ const Home = () => {
 
   return (
     <div>
-      <ModernSlider 
+      <ModernSlider
         slides={slides}
         autoPlay={true}
         interval={4000}
         showDots={true}
         showArrows={true}
       />
-      
+
       {/* Additional content sections can go here */}
     </div>
   );
