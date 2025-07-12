@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import uploadCloud from './routes/upload.js';
+import forgotPassword from "./src/routes/forgot-password.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/upload', uploadCloud)
+app.use('/api/user', forgotPassword)
 
 app.listen(PORT, () => {
     console.log("Server is running on "+PORT)

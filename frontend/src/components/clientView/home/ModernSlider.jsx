@@ -71,7 +71,7 @@ const ModernSlider = ({
                 <div className="max-w-4xl mx-auto">
                   {slide.content}
                   <button
-                    className="mt-8 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105"
+                    className="mt-8 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
                     onClick={() => navigate("/client/register")}
                   >
                     Join Now
@@ -139,7 +139,7 @@ const ModernSlider = ({
               key={index}
               onClick={() => goToSlide(index)}
               className={`dot w-4 h-4 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-red-600 scale-125" : "bg-gray-300"
+                index === currentIndex ? "bg-green-600 scale-125" : "bg-gray-300"
               }`}
               style={dotStyles}
               aria-label={`Go to slide ${index + 1}`}
